@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bender
+  namespace: bender-system
+
+spec:
+  selector:
+    matchLabels:
+      app: bender
+
+  replicas: 1
+
+  strategy:
+    type: Recreate
+
+  template:
+    metadata:
+      labels:
+        app: bender
+    spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+
+      containers:
+      - name: bender-bot
+        resources:
+          requests:
+            cpu: 1500m
+            memory: 128Mi
+          limits:
+            cpu: 1500m
+            memory: 128Mi
