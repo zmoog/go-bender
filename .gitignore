@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+
+# JetBrains IDE files
+.idea/
+
+# environmental variables file
+.env
