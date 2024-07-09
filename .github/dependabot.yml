@@ -13,9 +13,9 @@ updates:
       - automation
       - dependabot
     allow:
-      - dependency-name: github.com/bwmarrin/discordgo/*
+      - dependency-name: "github.com/bwmarrin/discordgo/*"
     groups:
       otel:
         patterns:
-        - "github.com/bwmarrin/discordgo/*
+          - "github.com/bwmarrin/discordgo/*"
     open-pull-requests-limit: 2
