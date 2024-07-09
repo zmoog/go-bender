@@ -13,8 +13,8 @@ updates:
       - automation
       - dependabot
     allow:
-      - dependency-name: "github.com/bwmarrin/discordgo/*"
-      - dependency-name: "go.uber.org/zap/*"
+      - dependency-name: "github.com/bwmarrin/*"
+      - dependency-name: "go.uber.org/*"
     groups:
       bwmarrin-projects:
         patterns:
