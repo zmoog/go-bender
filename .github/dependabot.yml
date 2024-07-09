@@ -15,7 +15,7 @@ updates:
     # allow:
     #   - dependency-name: "github.com/bwmarrin/discordgo/*"
     groups:
-      discordgo:
+      bwmarrin:
         patterns:
-          - "discordgo"
+          - "github.com/bwmarrin/*"
     open-pull-requests-limit: 2
