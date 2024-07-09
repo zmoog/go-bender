@@ -18,7 +18,5 @@ updates:
       otel:
         patterns:
         - "go.opentelemetry.io/*"
-        - "github.com/jaegertracing/jaeger"
-        - "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/jaeger"
         - "github.com/bwmarrin/discordgo/*
     open-pull-requests-limit: 2
