@@ -17,5 +17,5 @@ updates:
     groups:
       discordgo:
         patterns:
-          - "github.com/bwmarrin/discordgo/*"
+          - "discordgo*"
     open-pull-requests-limit: 2
