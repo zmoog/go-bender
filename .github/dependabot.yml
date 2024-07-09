@@ -12,8 +12,8 @@ updates:
     labels:
       - automation
       - dependabot
-    allow:
-      - dependency-name: "github.com/bwmarrin/discordgo/*"
+    # allow:
+    #   - dependency-name: "github.com/bwmarrin/discordgo/*"
     groups:
       discordgo:
         patterns:
