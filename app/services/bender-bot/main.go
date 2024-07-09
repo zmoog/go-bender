@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/zmoog/go-bender/foundation/logger"
 	"os"
 
+	"github.com/zmoog/go-bender/foundation/logger"
+
 	"github.com/zmoog/go-bender/bot"
+	"github.com/zmoog/go-bender/bot/commands"
+	"github.com/zmoog/go-bender/scraper/jsonscraper"
 )
 
 func main() {
@@ -24,7 +27,11 @@ func main() {
 
 	log.Info("Starting bot")
 
+	jsonscraper := jsonscraper.New()
+
 	bender := bot.New(log, token)
+	bender.AddCommand(commands.ListAppleProducts(jsonscraper))
+
 	err = bender.Run()
 	if err != nil {
 		log.Errorw("Error running bot: %v", err)
