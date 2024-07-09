@@ -17,5 +17,5 @@ updates:
     groups:
       discordgo:
         patterns:
-          - "discordgo*"
+          - "discordgo"
     open-pull-requests-limit: 2
