@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: "gomod" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "daily"
     labels:
       - automation
       - dependabot
@@ -17,6 +17,5 @@ updates:
     groups:
       otel:
         patterns:
-        - "go.opentelemetry.io/*"
         - "github.com/bwmarrin/discordgo/*
     open-pull-requests-limit: 2
