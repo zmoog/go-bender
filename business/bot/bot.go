@@ -9,7 +9,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/zmoog/go-bender/bot/commands"
+	"github.com/zmoog/go-bender/business/bot/commands"
 )
 
 type Bot struct {
@@ -70,7 +70,7 @@ func (b *Bot) newMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 		"message", m.Content,
 		"author", m.Author.Username,
 		"channel_id", m.ChannelID,
-		"type", m.Type.String(),
+		"type", m.Type,
 	)
 
 	found, msg, err := b.router.FindAndExecute(m.Content)
