@@ -17,7 +17,11 @@ func main() {
 		fmt.Printf("Error creating logger: %v\n", err)
 		os.Exit(1)
 	}
-	defer log.Sync()
+	defer func() {
+		if err := log.Sync(); err != nil {
+			log.Errorw("Error syncing logger", "error", err)
+		}
+	}()
 
 	// Configuration
 	token, ok := os.LookupEnv("DISCORD_TOKEN")
