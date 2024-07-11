@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/zmoog/go-bender/scraper/jsonscraper"
+	"github.com/zmoog/go-bender/foundation/scraper/jsonscraper"
 )
 
 func ListAppleProducts(scraper jsonscraper.Scraper) Command {
