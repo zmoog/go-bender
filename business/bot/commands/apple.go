@@ -11,7 +11,7 @@ import (
 
 func ListAppleProducts(scraper jsonscraper.Scraper) Command {
 	return listAppleProducts{
-		pattern: "!apple (ca|cn|fr|it|uk|us) (iphones|ipads|macs)(\\s+.*)?",
+		pattern: "!apple (ca|cn|fr|it|uk|us) (accessories|iphones|ipads|macs)(\\s+.*)?",
 		scraper: scraper,
 	}
 }
