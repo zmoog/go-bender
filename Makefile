@@ -2,7 +2,7 @@
 # Define dependencies
 
 KIND            := kindest/node:v1.29.1@sha256:a0cc28af37cf39b019e2b448c54d1a3f789de32536cb5a5db61a49623e527144
-KIND_CLUSTER    := bender
+KIND_CLUSTER    := dev
 NAMESPACE       := bender-system
 APP             := bender
 BASE_IMAGE_NAME := zmoog/bender
