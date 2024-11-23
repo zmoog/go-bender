@@ -7,8 +7,7 @@ NAMESPACE       := bender-system
 APP             := bender
 BASE_IMAGE_NAME := zmoog/bender
 SERVICE_NAME    := bender-bot
-VERSION		    := 0.0.1
-# VERSION		    := 0.0.1-$(shell git rev-parse --short HEAD)
+VERSION		    := 0.0.1-$(shell git rev-parse --short HEAD)
 SERVICE_IMAGE   := $(BASE_IMAGE_NAME)/$(SERVICE_NAME):$(VERSION)
 
 # =============================================================================
