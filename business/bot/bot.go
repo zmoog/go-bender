@@ -9,18 +9,27 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/zmoog/go-bender/business/bot/commands"
 )
 
 type Bot struct {
-	log   *zap.SugaredLogger
-	token string
+	log    *zap.SugaredLogger
+	token  string
+	router commands.Router
 }
 
 func New(log *zap.SugaredLogger, token string) *Bot {
+	router := commands.NewRouter()
+
 	return &Bot{
-		log:   log,
-		token: token,
+		log:    log,
+		token:  token,
+		router: router,
 	}
+}
+
+func (b *Bot) AddCommand(c commands.Command) {
+	b.router.Register(c)
 }
 
 func (b *Bot) Run() error {
@@ -60,14 +69,26 @@ func (b *Bot) newMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 		"Received message",
 		"message", m.Content,
 		"author", m.Author.Username,
+		"channel_id", m.ChannelID,
+		"type", m.Type,
 	)
 
-	switch {
-	case m.Content == "ping":
-		_, err := s.ChannelMessageSend(m.ChannelID, "Pong!")
-		if err != nil {
-			b.log.Error("Error sending message: ", err)
-		}
+	found, msg, err := b.router.FindAndExecute(m.Content)
+	if err != nil {
+		b.log.Error("Error executing command: ", err)
+		return
+	}
+
+	if !found {
+		b.log.Infof("no command for: %s", m.Content)
+		return
+	}
+
+	msg = msg[:min(2000, len(msg))]
+
+	_, err = s.ChannelMessageSend(m.ChannelID, msg)
+	if err != nil {
+		b.log.Error("Error sending message: ", err)
 	}
 }
 
