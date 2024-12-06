@@ -6,5 +6,5 @@ patches:
 - path: dev-bender-patch-deployment.yaml
 images:
 - name: service-image
-  newName: zmoog/bender/bender-bot
-  newTag: 0.0.1
+  newName: zmoog/bender
+  newTag: 0.0.1-685cab1
