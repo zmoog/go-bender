@@ -5,10 +5,11 @@ KIND            := kindest/node:v1.29.1@sha256:a0cc28af37cf39b019e2b448c54d1a3f7
 KIND_CLUSTER    := dev
 NAMESPACE       := bender-system
 APP             := bender
-BASE_IMAGE_NAME := zmoog
+#BASE_IMAGE_NAME := zmoog
 SERVICE_NAME    := go-bender
 VERSION 		?= latest
-SERVICE_IMAGE   := $(BASE_IMAGE_NAME)/$(SERVICE_NAME):$(VERSION)
+#SERVICE_IMAGE   := $(BASE_IMAGE_NAME)/$(SERVICE_NAME):$(VERSION)
+SERVICE_IMAGE   := $(SERVICE_NAME):$(VERSION)
 
 # =============================================================================
 # Building containers
