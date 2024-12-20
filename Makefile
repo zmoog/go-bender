@@ -21,6 +21,7 @@ service:
 		-t ${SERVICE_NAME} \
 		--build-arg BUILD_REF=$(VERSION) \
 		--build-arg BUILD_DATE=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ') \
+		--load \
 		.
 
 service-push: service
