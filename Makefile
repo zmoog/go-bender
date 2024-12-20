@@ -5,21 +5,26 @@ KIND            := kindest/node:v1.29.1@sha256:a0cc28af37cf39b019e2b448c54d1a3f7
 KIND_CLUSTER    := dev
 NAMESPACE       := bender-system
 APP             := bender
-BASE_IMAGE_NAME := ghcr.io/zmoog
-SERVICE_NAME    := bender
-VERSION:= 0.0.1-$(shell git rev-parse --short HEAD)
+BASE_IMAGE_NAME := zmoog
+SERVICE_NAME    := go-bender
+VERSION 		?= latest
 SERVICE_IMAGE   := $(BASE_IMAGE_NAME)/$(SERVICE_NAME):$(VERSION)
 
 # =============================================================================
 # Building containers
 
 service:
-	docker build \
+	docker buildx build \
+		--platform linux/amd64,linux/arm64 \
 		-f zarf/docker/dockerfile.service \
 		-t ${SERVICE_IMAGE} \
 		--build-arg BUILD_REF=$(VERSION) \
 		--build-arg BUILD_DATE=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ') \
 		.
+
+service-push: service
+	docker tag ${SERVICE_IMAGE} ghcr.io/zmoog/go-bender:${VERSION}
+	docker push ghcr.io/zmoog/go-bender:${VERSION}
 
 # =============================================================================
 # Running from within k8s/kind
