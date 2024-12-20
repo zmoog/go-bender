@@ -53,6 +53,7 @@ jobs:
           
           # This uses the Docker `latest` tag convention.
           [ "$VERSION" == "main" ] && VERSION=latest
+          [ "$VERSION" == "merge" ] && VERSION=latest
           
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
