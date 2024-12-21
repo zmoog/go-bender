@@ -10,6 +10,11 @@ import (
 	"github.com/zmoog/go-bender/foundation/scraper/jsonscraper"
 )
 
+var (
+	build = "unknown"
+	date  = "unknown"
+)
+
 func main() {
 	// Logging
 	log, err := logger.New("bender")
@@ -36,7 +41,10 @@ func main() {
 	jsonscraper := jsonscraper.New()
 
 	// Commands
-	bender := bot.New(log, token)
+	bender := bot.New(log, token, bot.BuildInfo{
+		Version: build,
+		Date:    date,
+	})
 	bender.AddCommand(commands.ListAppleProducts(jsonscraper))
 
 	// Startup
