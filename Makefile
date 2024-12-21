@@ -16,7 +16,8 @@ SERVICE_IMAGE   := $(SERVICE_NAME):$(VERSION)
 
 service:
 	docker buildx build \
-		--push \
+		--debug \
+		--load \
 		--platform linux/amd64,linux/arm64 \
 		-f zarf/docker/dockerfile.service \
 		-t ${SERVICE_NAME} \

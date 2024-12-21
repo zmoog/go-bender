@@ -1,6 +1,7 @@
-FROM golang:1.23 as build_bender-bot
-ENV CGO_ENABLED 0
+FROM golang:1.23 AS build_bender-bot
+ENV CGO_ENABLED=0
 ARG BUILD_REF
+ARG BUILD_DATE
 
 RUN mkdir /service
 COPY go.* /service/
@@ -25,7 +26,11 @@ ARG BUILD_DATE
 ARG BUILD_REF
 RUN addgroup -g 1000 -S bender && \
     adduser -u 1000 -h /service -G bender -S bender
-COPY --from=build_bender-bot --chown=bender:bender /service/app/services/bender-bot/bender-bot /service/bender-bot
+COPY \
+    --from=build_bender-bot \
+    --chown=bender:bender \
+    /service/app/services/bender-bot/bender-bot \
+    /service/bender-bot
 WORKDIR /service
 USER bender
 CMD ["./bender-bot"]
