@@ -16,12 +16,12 @@ SERVICE_IMAGE   := $(SERVICE_NAME):$(VERSION)
 
 service:
 	docker buildx build \
+		--push \
 		--platform linux/amd64,linux/arm64 \
 		-f zarf/docker/dockerfile.service \
 		-t ${SERVICE_NAME} \
 		--build-arg BUILD_REF=$(VERSION) \
 		--build-arg BUILD_DATE=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ') \
-		--load \
 		.
 
 service-push: service
