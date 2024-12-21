@@ -12,7 +12,7 @@ RUN go mod download
 COPY . /service
 
 WORKDIR /service/app/services/bender-bot
-RUN go build -ldflags "-X main.build=${BUILD_REF}"
+RUN go build -ldflags "-X main.build=${BUILD_REF} -X main.date=${BUILD_DATE}"
 
 FROM alpine:3.19.1
 LABEL org.opencontainers.image.created="${BUILD_DATE}" \

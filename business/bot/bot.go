@@ -55,7 +55,11 @@ func (b *Bot) Run() error {
 	}
 	defer session.Close()
 
-	b.log.Info("Bot is now running. Press CTRL-C to exit.", "version", b.buildInfo.Version, "date", b.buildInfo.Date)
+	b.log.Info(
+		"Bot is now running. Press CTRL-C to exit.",
+		zap.String("version", b.buildInfo.Version),
+		zap.String("date", b.buildInfo.Date),
+	)
 
 	// Wait here until CTRL-C or other term signal is received.
 	c := make(chan os.Signal, 1)
