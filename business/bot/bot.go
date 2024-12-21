@@ -12,19 +12,26 @@ import (
 	"github.com/zmoog/go-bender/business/bot/commands"
 )
 
-type Bot struct {
-	log    *zap.SugaredLogger
-	token  string
-	router commands.Router
+type BuildInfo struct {
+	Version string
+	Date    string
 }
 
-func New(log *zap.SugaredLogger, token string) *Bot {
+type Bot struct {
+	log       *zap.SugaredLogger
+	token     string
+	router    commands.Router
+	buildInfo BuildInfo
+}
+
+func New(log *zap.SugaredLogger, token string, buildInfo BuildInfo) *Bot {
 	router := commands.NewRouter()
 
 	return &Bot{
-		log:    log,
-		token:  token,
-		router: router,
+		log:       log,
+		token:     token,
+		router:    router,
+		buildInfo: buildInfo,
 	}
 }
 
@@ -48,7 +55,7 @@ func (b *Bot) Run() error {
 	}
 	defer session.Close()
 
-	b.log.Info("Bot is now running. Press CTRL-C to exit.")
+	b.log.Info("Bot is now running. Press CTRL-C to exit.", "version", b.buildInfo.Version, "date", b.buildInfo.Date)
 
 	// Wait here until CTRL-C or other term signal is received.
 	c := make(chan os.Signal, 1)
