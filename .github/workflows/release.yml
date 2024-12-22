@@ -1,5 +1,5 @@
 #
-name: Demo Push
+name: Release
 
 # This workflow runs when any of the following occur:
 # - A tag starting with "v" is created
