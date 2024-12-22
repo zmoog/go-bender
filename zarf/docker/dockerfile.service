@@ -1,6 +1,7 @@
-FROM golang:1.22 as build_bender-bot
-ENV CGO_ENABLED 0
+FROM golang:1.23 AS build_bender-bot
+ENV CGO_ENABLED=0
 ARG BUILD_REF
+ARG BUILD_DATE
 
 RUN mkdir /service
 COPY go.* /service/
@@ -11,21 +12,25 @@ RUN go mod download
 COPY . /service
 
 WORKDIR /service/app/services/bender-bot
-RUN go build -ldflags "-X main.build=${BUILD_REF}"
+RUN go build -ldflags "-X main.build=${BUILD_REF} -X main.date=${BUILD_DATE}"
 
 FROM alpine:3.19.1
+LABEL org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.title="bender" \
+      org.opencontainers.image.description="Bender is a Discord bot that helps you." \
+      org.opencontainers.image.authors="Maurizio Branca <maurizio.branca@gmail.com>" \
+      org.opencontainers.image.source="https://github.com/zmoog/go-bender" \
+      org.opencontainers.image.revision="${BUILD_REF}" \
+      org.opencontainers.image.zmoog="zmoog labs" 
 ARG BUILD_DATE
 ARG BUILD_REF
 RUN addgroup -g 1000 -S bender && \
     adduser -u 1000 -h /service -G bender -S bender
-COPY --from=build_bender-bot --chown=bender:bender /service/app/services/bender-bot/bender-bot /service/bender-bot
+COPY \
+    --from=build_bender-bot \
+    --chown=bender:bender \
+    /service/app/services/bender-bot/bender-bot \
+    /service/bender-bot
 WORKDIR /service
 USER bender
 CMD ["./bender-bot"]
-
-LABEL org.opencontainers.image.created="${BUILD_DATE}" \
-      org.opencontainers.image.title="bender-bot" \
-      org.opencontainers.image.authors="Maurizio Branca <maurizio.branca@gmail.com>" \
-      org.opencontainers.image.source="https://github.com/zmoog/service/app/bender-bot" \
-      org.opencontainers.image.revision="${BUILD_REF}" \
-      org.opencontainers.image.zmoog="zmoog labs" 
