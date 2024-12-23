@@ -2,13 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: bender
-  namespace: bender-system
+  namespace: argocd
 spec:
-  project: bender
+  project: default
   source:
     repoURL: https://github.com/zmoog/go-bender
     targetRevision: HEAD
-    path: zarf/k8s/dev
+    path: zarf/k8s/dev/bender
   destination:
     server: https://kubernetes.default.svc
     namespace: bender-system
