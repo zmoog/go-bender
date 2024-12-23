@@ -55,7 +55,7 @@ func (b *Bot) Run() error {
 	}
 	defer session.Close()
 
-	b.log.Info(
+	b.log.Infow(
 		"Bot is now running. Press CTRL-C to exit.",
 		zap.String("version", b.buildInfo.Version),
 		zap.String("date", b.buildInfo.Date),
