@@ -6,5 +6,5 @@ patches:
 - path: dev-bender-patch-deployment.yaml
 images:
 - name: service-image
-  newName: ghcr.io/zmoog/bender
+  newName: ghcr.io/zmoog/go-bender
   newTag: 0.2.0-pre1
