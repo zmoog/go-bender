@@ -7,4 +7,4 @@ patches:
 images:
 - name: service-image
   newName: ghcr.io/zmoog/go-bender
-  newTag: 0.2.1
+  newTag: 0.3.0
