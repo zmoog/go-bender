@@ -26,28 +26,48 @@ func (c listAppleProducts) Regex() *regexp.Regexp {
 }
 
 func (c listAppleProducts) Execute(ctx context.Context, match []string) (string, error) {
-	var products []product
-	var filteredProducts []product
+	var allProducts []product
+	var matchingProducts []product
 
 	url := fmt.Sprintf("https://raw.githubusercontent.com/zmoog/refurbished-history/main/stores/%s/%s.json", match[1], match[2])
-	err := c.scraper.Scrape(url, &products)
+	err := c.scraper.Scrape(url, &allProducts)
 	if err != nil {
 		return "", err
 	}
 
-	for _, p := range products {
-		if len(match) == 4 && !strings.Contains(p.Name, match[3]) {
-			continue
-		}
-		filteredProducts = append(filteredProducts, p)
-	}
-
-	if len(filteredProducts) == 0 {
+	if len(allProducts) == 0 {
 		return fmt.Sprintf("No %s in stock in %s", match[2], match[1]), nil
 	}
 
+	// We have at least one product in stock. Not we need to filter
+	// the products based on the third argument if it exists.
+	switch len(match) {
+	case 3: // No filter
+		matchingProducts = allProducts
+	case 4: // Filter by third argument
+		for _, p := range allProducts {
+			if !strings.Contains(p.Name, match[3]) {
+				continue
+			}
+			matchingProducts = append(matchingProducts, p)
+		}
+
+		// Check if we have any matching products.
+		if len(matchingProducts) == 0 {
+			return fmt.Sprintf(
+				"No %s with %s in stock in %s",
+				match[2],
+				strings.TrimSpace(match[3]),
+				match[1],
+			), nil
+		}
+	}
+
+	// We have at least one matching product.
+	// Render the message with the matching
+	// products.
 	msg := "Products in stock:\n"
-	for _, p := range filteredProducts {
+	for _, p := range matchingProducts {
 		msg += fmt.Sprintf("- %s %v\n", p.Name, p.Price)
 	}
 
