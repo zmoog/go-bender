@@ -8,7 +8,7 @@ import (
 func ListCommands(router *Router) Command {
 	return listCommands{
 		router:  router,
-		pattern: "!help",
+		pattern: "^!help",
 	}
 }
 
