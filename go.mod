@@ -1,10 +1,12 @@
 module github.com/zmoog/go-bender
 
-go 1.22.1
+go 1.23
+
+toolchain go1.23.5
 
 require (
 	github.com/bwmarrin/discordgo v0.28.1
-	github.com/go-json-experiment/json v0.0.0-20231102232822-2e55bd4e08b0
+	github.com/go-json-experiment/json v0.0.0-20250121170519-517a08192daf
 	github.com/stretchr/testify v1.8.1
 	go.uber.org/zap v1.27.0
 )
