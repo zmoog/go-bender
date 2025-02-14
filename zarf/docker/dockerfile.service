@@ -14,7 +14,7 @@ COPY . /service
 WORKDIR /service/app/services/bender-bot
 RUN go build -ldflags "-X main.build=${BUILD_REF} -X main.date=${BUILD_DATE}"
 
-FROM alpine:3.21.2
+FROM alpine:3.21.3
 LABEL org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.title="bender" \
       org.opencontainers.image.description="Bender is a Discord bot that helps you." \
