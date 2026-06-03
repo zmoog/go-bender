@@ -2,7 +2,7 @@ module github.com/zmoog/go-bender
 
 go 1.23
 
-toolchain go1.23.5
+toolchain go1.26.4
 
 require (
 	github.com/bwmarrin/discordgo v0.28.1
